@@ -21,13 +21,13 @@ def reply(user_id, msg,genre):
     if genre != NULL:
         if genre=="comedy":
             fbmess="21 JUMP STREET, Forrest Gump, Ted."
-        else if genre=="romantic":
+        elif genre=="romantic":
             fbmess="Crazy stupid love, About Time, Titanic."
-        else if genre=="drama":
+        elif genre=="drama":
             fbmess="Dead poet's society, Good will hunting, Lion."
-        else if genre=="thriller":
+        elif genre=="thriller":
             fbmess="Shutter island, Inception, Gone girl."
-        else if genre=="horror":
+        elif genre=="horror":
             fbmess="The ring, Final destination series, Wrong turn series."
     if fbmess=="":     
         data = {
