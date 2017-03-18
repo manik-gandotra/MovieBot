@@ -32,9 +32,9 @@ def reply(user_id, msg):
             fbmess="The ring, Final destination series, Wrong turn series."
     '''
     #if fbmess=="":     
-        data = {
-            "recipient": {"id": user_id},
-            "message": {"text": msg}
+    data = {
+        "recipient": {"id": user_id},
+        "message": {"text": msg}
         }
     #else:
     #    data={
