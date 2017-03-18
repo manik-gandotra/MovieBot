@@ -63,6 +63,7 @@ def handle_incoming_messages():
     response_obj = json.loads(responsestr)
     if 'result' in response_obj:
         response = response_obj["result"]["fulfillment"]["speech"]
+        return response_obj["result"]["contexts"]
         genre=response_obj["result"]["contexts"][0]["parameters"]["genre.original"]
     reply(sender, response,genre)
     reply(sender,response)
