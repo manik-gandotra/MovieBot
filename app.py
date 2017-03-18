@@ -16,32 +16,12 @@ def verify():
 
     return 'Hello World (from Flask!)', 200
 
-def reply(user_id, msg,genre):
+def reply(user_id, msg):
     
-    fbmess=""
-    if genre != "NULL":
-        if genre=="comedy":
-            fbmess="21 JUMP STREET, Forrest Gump, Ted."
-        elif genre=="romantic":
-            fbmess="Crazy stupid love, About Time, Titanic."
-        elif genre=="drama":
-            fbmess="Dead poet's society, Good will hunting, Lion."
-        elif genre=="thriller":
-            fbmess="Shutter island, Inception, Gone girl."
-        elif genre=="horror":
-            fbmess="The ring, Final destination series, Wrong turn series."
-    
-    if fbmess=="":     
-        data = {
-            "recipient": {"id": user_id},
-            "message": {"text": msg}
-        }
-    else:
-        data={
-            "recipient": {"id": user_id},
-            "message": {"text": msg},
-            "facebook":{fbmess}
-        }
+    data = {
+        "recipient": {"id": user_id},
+        "message": {"text": msg}
+    }
     resp = requests.post("https://graph.facebook.com/v2.6/me/messages?access_token=" + ACCESS_TOKEN, json=data)
     print(resp.content)
 
@@ -63,10 +43,7 @@ def handle_incoming_messages():
     response_obj = json.loads(responsestr)
     if 'result' in response_obj:
         response = response_obj["result"]["fulfillment"]["speech"]
-        return response_obj["result"]["contexts"]
-        genre=response_obj["result"]["contexts"][0]["parameters"]["genre.original"]
-    reply(sender, response,genre)
-    reply(sender,response)
+    reply(sender, response)
     return "ok"
 
 if __name__ == '__main__':
