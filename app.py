@@ -16,11 +16,30 @@ def verify():
 
     return 'Hello World (from Flask!)', 200
 
-def reply(user_id, msg):
-    data = {
-        "recipient": {"id": user_id},
-        "message": {"text": msg}
-    }
+def reply(user_id, msg,genre):
+    fbmess=""
+    if genre != NULL:
+        if genre=="comedy":
+            fbmess="21 JUMP STREET, Forrest Gump, Ted."
+        else if genre=="romantic":
+            fbmess="Crazy stupid love, About Time, Titanic."
+        else if genre=="drama":
+            fbmess="Dead poet's society, Good will hunting, Lion."
+        else if genre=="thriller":
+            fbmess="Shutter island, Inception, Gone girl."
+        else if genre=="horror":
+            fbmess="The ring, Final destination series, Wrong turn series."
+    if fbmess=="":     
+        data = {
+            "recipient": {"id": user_id},
+            "message": {"text": msg}
+        }
+    else:
+        data={
+            "recipient": {"id": user_id},
+            "message": {"text": msg},
+            "facebook":{fbmess}
+        }
     resp = requests.post("https://graph.facebook.com/v2.6/me/messages?access_token=" + ACCESS_TOKEN, json=data)
     print(resp.content)
 
@@ -42,7 +61,8 @@ def handle_incoming_messages():
     response_obj = json.loads(responsestr)
     if 'result' in response_obj:
         response = response_obj["result"]["fulfillment"]["speech"]
-    reply(sender, response)
+        genre=response_obj["result"]["contexts"][0]["parameters"]["genre.original"]
+    reply(sender, response,genre)
 
     return "ok"
 
