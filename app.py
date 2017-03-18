@@ -16,7 +16,8 @@ def verify():
 
     return 'Hello World (from Flask!)', 200
 
-def reply(user_id, msg,genre):
+def reply(user_id, msg):
+    '''
     fbmess=""
     if genre != NULL:
         if genre=="comedy":
@@ -29,6 +30,7 @@ def reply(user_id, msg,genre):
             fbmess="Shutter island, Inception, Gone girl."
         elif genre=="horror":
             fbmess="The ring, Final destination series, Wrong turn series."
+    '''
     #if fbmess=="":     
         data = {
             "recipient": {"id": user_id},
@@ -61,9 +63,9 @@ def handle_incoming_messages():
     response_obj = json.loads(responsestr)
     if 'result' in response_obj:
         response = response_obj["result"]["fulfillment"]["speech"]
-        genre=response_obj["result"]["contexts"][0]["parameters"]["genre.original"]
-    reply(sender, response,genre)
-
+        #genre=response_obj["result"]["contexts"][0]["parameters"]["genre.original"]
+    #reply(sender, response,genre)
+    reply(sender,response)
     return "ok"
 
 if __name__ == '__main__':
