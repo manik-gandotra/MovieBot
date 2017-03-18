@@ -29,17 +29,17 @@ def reply(user_id, msg,genre):
             fbmess="Shutter island, Inception, Gone girl."
         elif genre=="horror":
             fbmess="The ring, Final destination series, Wrong turn series."
-    if fbmess=="":     
+    #if fbmess=="":     
         data = {
             "recipient": {"id": user_id},
             "message": {"text": msg}
         }
-    else:
-        data={
-            "recipient": {"id": user_id},
-            "message": {"text": msg},
-            "facebook":{fbmess}
-        }
+    #else:
+    #    data={
+    #        "recipient": {"id": user_id},
+    #        "message": {"text": msg},
+    #        "facebook":{fbmess}
+    #    }
     resp = requests.post("https://graph.facebook.com/v2.6/me/messages?access_token=" + ACCESS_TOKEN, json=data)
     print(resp.content)
 
